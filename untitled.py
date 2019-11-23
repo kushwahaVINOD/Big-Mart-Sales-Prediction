@@ -31,6 +31,14 @@ def preprocessData(data,train=False):
 def rmse(pred,Y_train):
 	return math.sqrt(mean_squared_error(Y_train,lr_pred))
 
+def find_accuracy(pred,y):
+	error=0
+	ysum=0
+	for i in range(len(pred)):
+		error+=abs(pred[i]-y[i])
+		ysum+=y[i]
+	return 100-(error/ysum)*100
+
 def linear_regression(X_train,Y_train,X_test):
 
 
@@ -48,7 +56,7 @@ def linear_regression(X_train,Y_train,X_test):
 	# 	    row=str(i)+" "+str(lr_pred[i])
 	# 	    writer.writerows(row)
 
-	lr_accuracy=rmse(lr_pred,Y_train)	    
+	lr_accuracy=find_accuracy(lr_pred,Y_train)	    
 	print(lr_accuracy)
 
 def neural_network(X_train,Y_train,X_test):
@@ -82,7 +90,7 @@ def main():
 	X_train,Y_train=preprocessData(train_df,True)
 	X_test,Y=preprocessData(test_df)
 	print(X_train.shape)
-	#linear_regression(X_train,Y_train,X_test)
-	bagged_decision_tree(X_train,Y_train)
+	linear_regression(X_train,Y_train,X_test)
+	#bagged_decision_tree(X_train,Y_train)
 
 main()
