@@ -35,7 +35,7 @@ def find_accuracy(pred,y):
 
 	return 100-(np.sum(np.absolute(np.subtract(pred,y)))/np.sum(y))*100
 
-def linear_regression(X_train,Y_train,X_test,Y_test):
+def linear_regression(X_train,Y_train,X_test):
 
 
 
@@ -44,8 +44,9 @@ def linear_regression(X_train,Y_train,X_test,Y_test):
 
 
 	lr_pred = lr.predict(X_test)
-	lr_accuracy=find_accuracy(lr_pred,Y_test)	    
-	print(lr_accuracy)
+
+	return lr_pred
+
 
 def neural_network(X_train,Y_train,X_test):
 
@@ -76,7 +77,9 @@ def main():
 	X_train,Y_train=preprocessData(train_df)
 	X_train, X_test, Y_train, Y_test=split_dataset(X_train,Y_train)
 	print(X_train.shape)
-	linear_regression(X_train,Y_train,X_test,Y_test)
+	prediction=linear_regression(X_train,Y_train,X_test)
+	accuracy=find_accuracy(prediction,Y_test)	    
+	print(accuracy)
 	#bagged_decision_tree(X_train,Y_train)
 
 main()
